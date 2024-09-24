@@ -1775,7 +1775,8 @@ func (c *CloudFront) CreateInvalidationRequest(input *CreateInvalidationInput) (
 
 // CreateInvalidation API operation for Amazon CloudFront.
 //
-// Create a new invalidation.
+// Create a new invalidation. For more information, see Invalidating files (https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html)
+// in the Amazon CloudFront Developer Guide.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -1930,6 +1931,104 @@ func (c *CloudFront) CreateKeyGroup(input *CreateKeyGroupInput) (*CreateKeyGroup
 // for more information on using Contexts.
 func (c *CloudFront) CreateKeyGroupWithContext(ctx aws.Context, input *CreateKeyGroupInput, opts ...request.Option) (*CreateKeyGroupOutput, error) {
 	req, out := c.CreateKeyGroupRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opCreateKeyValueStore = "CreateKeyValueStore2020_05_31"
+
+// CreateKeyValueStoreRequest generates a "aws/request.Request" representing the
+// client's request for the CreateKeyValueStore operation. The "output" return
+// value will be populated with the request's response once the request completes
+// successfully.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateKeyValueStore for more information on using the CreateKeyValueStore
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//	// Example sending a request using the CreateKeyValueStoreRequest method.
+//	req, resp := client.CreateKeyValueStoreRequest(params)
+//
+//	err := req.Send()
+//	if err == nil { // resp is now filled
+//	    fmt.Println(resp)
+//	}
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateKeyValueStore
+func (c *CloudFront) CreateKeyValueStoreRequest(input *CreateKeyValueStoreInput) (req *request.Request, output *CreateKeyValueStoreOutput) {
+	op := &request.Operation{
+		Name:       opCreateKeyValueStore,
+		HTTPMethod: "POST",
+		HTTPPath:   "/2020-05-31/key-value-store/",
+	}
+
+	if input == nil {
+		input = &CreateKeyValueStoreInput{}
+	}
+
+	output = &CreateKeyValueStoreOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// CreateKeyValueStore API operation for Amazon CloudFront.
+//
+// Specifies the key value store resource to add to your account. In your account,
+// the key value store names must be unique. You can also import key value store
+// data in JSON format from an S3 bucket by providing a valid ImportSource that
+// you own.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon CloudFront's
+// API operation CreateKeyValueStore for usage and error information.
+//
+// Returned Error Codes:
+//
+//   - ErrCodeAccessDenied "AccessDenied"
+//     Access denied.
+//
+//   - ErrCodeEntityLimitExceeded "EntityLimitExceeded"
+//     The key value store entity limit has been exceeded.
+//
+//   - ErrCodeEntityAlreadyExists "EntityAlreadyExists"
+//     The key value store entity already exists. You must provide a unique key
+//     value store entity.
+//
+//   - ErrCodeEntitySizeLimitExceeded "EntitySizeLimitExceeded"
+//     The key value store entity size limit was exceeded.
+//
+//   - ErrCodeInvalidArgument "InvalidArgument"
+//     An argument is invalid.
+//
+//   - ErrCodeUnsupportedOperation "UnsupportedOperation"
+//     This operation is not supported in this region.
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateKeyValueStore
+func (c *CloudFront) CreateKeyValueStore(input *CreateKeyValueStoreInput) (*CreateKeyValueStoreOutput, error) {
+	req, out := c.CreateKeyValueStoreRequest(input)
+	return out, req.Send()
+}
+
+// CreateKeyValueStoreWithContext is the same as CreateKeyValueStore with the addition of
+// the ability to pass a context and additional request options.
+//
+// See CreateKeyValueStore for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CloudFront) CreateKeyValueStoreWithContext(ctx aws.Context, input *CreateKeyValueStoreInput, opts ...request.Option) (*CreateKeyValueStoreOutput, error) {
+	req, out := c.CreateKeyValueStoreRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -3592,6 +3691,101 @@ func (c *CloudFront) DeleteKeyGroupWithContext(ctx aws.Context, input *DeleteKey
 	return out, req.Send()
 }
 
+const opDeleteKeyValueStore = "DeleteKeyValueStore2020_05_31"
+
+// DeleteKeyValueStoreRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteKeyValueStore operation. The "output" return
+// value will be populated with the request's response once the request completes
+// successfully.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteKeyValueStore for more information on using the DeleteKeyValueStore
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//	// Example sending a request using the DeleteKeyValueStoreRequest method.
+//	req, resp := client.DeleteKeyValueStoreRequest(params)
+//
+//	err := req.Send()
+//	if err == nil { // resp is now filled
+//	    fmt.Println(resp)
+//	}
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteKeyValueStore
+func (c *CloudFront) DeleteKeyValueStoreRequest(input *DeleteKeyValueStoreInput) (req *request.Request, output *DeleteKeyValueStoreOutput) {
+	op := &request.Operation{
+		Name:       opDeleteKeyValueStore,
+		HTTPMethod: "DELETE",
+		HTTPPath:   "/2020-05-31/key-value-store/{Name}",
+	}
+
+	if input == nil {
+		input = &DeleteKeyValueStoreInput{}
+	}
+
+	output = &DeleteKeyValueStoreOutput{}
+	req = c.newRequest(op, input, output)
+	req.Handlers.Unmarshal.Swap(restxml.UnmarshalHandler.Name, protocol.UnmarshalDiscardBodyHandler)
+	return
+}
+
+// DeleteKeyValueStore API operation for Amazon CloudFront.
+//
+// Specifies the key value store to delete.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon CloudFront's
+// API operation DeleteKeyValueStore for usage and error information.
+//
+// Returned Error Codes:
+//
+//   - ErrCodeAccessDenied "AccessDenied"
+//     Access denied.
+//
+//   - ErrCodeInvalidIfMatchVersion "InvalidIfMatchVersion"
+//     The If-Match version is missing or not valid.
+//
+//   - ErrCodeEntityNotFound "EntityNotFound"
+//     The key value store entity was not found.
+//
+//   - ErrCodeCannotDeleteEntityWhileInUse "CannotDeleteEntityWhileInUse"
+//     The key value store entity cannot be deleted while it is in use.
+//
+//   - ErrCodePreconditionFailed "PreconditionFailed"
+//     The precondition in one or more of the request fields evaluated to false.
+//
+//   - ErrCodeUnsupportedOperation "UnsupportedOperation"
+//     This operation is not supported in this region.
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteKeyValueStore
+func (c *CloudFront) DeleteKeyValueStore(input *DeleteKeyValueStoreInput) (*DeleteKeyValueStoreOutput, error) {
+	req, out := c.DeleteKeyValueStoreRequest(input)
+	return out, req.Send()
+}
+
+// DeleteKeyValueStoreWithContext is the same as DeleteKeyValueStore with the addition of
+// the ability to pass a context and additional request options.
+//
+// See DeleteKeyValueStore for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CloudFront) DeleteKeyValueStoreWithContext(ctx aws.Context, input *DeleteKeyValueStoreInput, opts ...request.Option) (*DeleteKeyValueStoreOutput, error) {
+	req, out := c.DeleteKeyValueStoreRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
 const opDeleteMonitoringSubscription = "DeleteMonitoringSubscription2020_05_31"
 
 // DeleteMonitoringSubscriptionRequest generates a "aws/request.Request" representing the
@@ -4386,6 +4580,94 @@ func (c *CloudFront) DescribeFunction(input *DescribeFunctionInput) (*DescribeFu
 // for more information on using Contexts.
 func (c *CloudFront) DescribeFunctionWithContext(ctx aws.Context, input *DescribeFunctionInput, opts ...request.Option) (*DescribeFunctionOutput, error) {
 	req, out := c.DescribeFunctionRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opDescribeKeyValueStore = "DescribeKeyValueStore2020_05_31"
+
+// DescribeKeyValueStoreRequest generates a "aws/request.Request" representing the
+// client's request for the DescribeKeyValueStore operation. The "output" return
+// value will be populated with the request's response once the request completes
+// successfully.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeKeyValueStore for more information on using the DescribeKeyValueStore
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//	// Example sending a request using the DescribeKeyValueStoreRequest method.
+//	req, resp := client.DescribeKeyValueStoreRequest(params)
+//
+//	err := req.Send()
+//	if err == nil { // resp is now filled
+//	    fmt.Println(resp)
+//	}
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DescribeKeyValueStore
+func (c *CloudFront) DescribeKeyValueStoreRequest(input *DescribeKeyValueStoreInput) (req *request.Request, output *DescribeKeyValueStoreOutput) {
+	op := &request.Operation{
+		Name:       opDescribeKeyValueStore,
+		HTTPMethod: "GET",
+		HTTPPath:   "/2020-05-31/key-value-store/{Name}",
+	}
+
+	if input == nil {
+		input = &DescribeKeyValueStoreInput{}
+	}
+
+	output = &DescribeKeyValueStoreOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// DescribeKeyValueStore API operation for Amazon CloudFront.
+//
+// Specifies the key value store and its configuration.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon CloudFront's
+// API operation DescribeKeyValueStore for usage and error information.
+//
+// Returned Error Codes:
+//
+//   - ErrCodeAccessDenied "AccessDenied"
+//     Access denied.
+//
+//   - ErrCodeInvalidArgument "InvalidArgument"
+//     An argument is invalid.
+//
+//   - ErrCodeEntityNotFound "EntityNotFound"
+//     The key value store entity was not found.
+//
+//   - ErrCodeUnsupportedOperation "UnsupportedOperation"
+//     This operation is not supported in this region.
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DescribeKeyValueStore
+func (c *CloudFront) DescribeKeyValueStore(input *DescribeKeyValueStoreInput) (*DescribeKeyValueStoreOutput, error) {
+	req, out := c.DescribeKeyValueStoreRequest(input)
+	return out, req.Send()
+}
+
+// DescribeKeyValueStoreWithContext is the same as DescribeKeyValueStore with the addition of
+// the ability to pass a context and additional request options.
+//
+// See DescribeKeyValueStore for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CloudFront) DescribeKeyValueStoreWithContext(ctx aws.Context, input *DescribeKeyValueStoreInput, opts ...request.Option) (*DescribeKeyValueStoreOutput, error) {
+	req, out := c.DescribeKeyValueStoreRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -8340,6 +8622,148 @@ func (c *CloudFront) ListKeyGroupsWithContext(ctx aws.Context, input *ListKeyGro
 	return out, req.Send()
 }
 
+const opListKeyValueStores = "ListKeyValueStores2020_05_31"
+
+// ListKeyValueStoresRequest generates a "aws/request.Request" representing the
+// client's request for the ListKeyValueStores operation. The "output" return
+// value will be populated with the request's response once the request completes
+// successfully.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListKeyValueStores for more information on using the ListKeyValueStores
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//	// Example sending a request using the ListKeyValueStoresRequest method.
+//	req, resp := client.ListKeyValueStoresRequest(params)
+//
+//	err := req.Send()
+//	if err == nil { // resp is now filled
+//	    fmt.Println(resp)
+//	}
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListKeyValueStores
+func (c *CloudFront) ListKeyValueStoresRequest(input *ListKeyValueStoresInput) (req *request.Request, output *ListKeyValueStoresOutput) {
+	op := &request.Operation{
+		Name:       opListKeyValueStores,
+		HTTPMethod: "GET",
+		HTTPPath:   "/2020-05-31/key-value-store",
+		Paginator: &request.Paginator{
+			InputTokens:     []string{"Marker"},
+			OutputTokens:    []string{"KeyValueStoreList.NextMarker"},
+			LimitToken:      "MaxItems",
+			TruncationToken: "",
+		},
+	}
+
+	if input == nil {
+		input = &ListKeyValueStoresInput{}
+	}
+
+	output = &ListKeyValueStoresOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// ListKeyValueStores API operation for Amazon CloudFront.
+//
+// Specifies the key value stores to list.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon CloudFront's
+// API operation ListKeyValueStores for usage and error information.
+//
+// Returned Error Codes:
+//
+//   - ErrCodeAccessDenied "AccessDenied"
+//     Access denied.
+//
+//   - ErrCodeInvalidArgument "InvalidArgument"
+//     An argument is invalid.
+//
+//   - ErrCodeUnsupportedOperation "UnsupportedOperation"
+//     This operation is not supported in this region.
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListKeyValueStores
+func (c *CloudFront) ListKeyValueStores(input *ListKeyValueStoresInput) (*ListKeyValueStoresOutput, error) {
+	req, out := c.ListKeyValueStoresRequest(input)
+	return out, req.Send()
+}
+
+// ListKeyValueStoresWithContext is the same as ListKeyValueStores with the addition of
+// the ability to pass a context and additional request options.
+//
+// See ListKeyValueStores for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CloudFront) ListKeyValueStoresWithContext(ctx aws.Context, input *ListKeyValueStoresInput, opts ...request.Option) (*ListKeyValueStoresOutput, error) {
+	req, out := c.ListKeyValueStoresRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+// ListKeyValueStoresPages iterates over the pages of a ListKeyValueStores operation,
+// calling the "fn" function with the response data for each page. To stop
+// iterating, return false from the fn function.
+//
+// See ListKeyValueStores method for more information on how to use this operation.
+//
+// Note: This operation can generate multiple requests to a service.
+//
+//	// Example iterating over at most 3 pages of a ListKeyValueStores operation.
+//	pageNum := 0
+//	err := client.ListKeyValueStoresPages(params,
+//	    func(page *cloudfront.ListKeyValueStoresOutput, lastPage bool) bool {
+//	        pageNum++
+//	        fmt.Println(page)
+//	        return pageNum <= 3
+//	    })
+func (c *CloudFront) ListKeyValueStoresPages(input *ListKeyValueStoresInput, fn func(*ListKeyValueStoresOutput, bool) bool) error {
+	return c.ListKeyValueStoresPagesWithContext(aws.BackgroundContext(), input, fn)
+}
+
+// ListKeyValueStoresPagesWithContext same as ListKeyValueStoresPages except
+// it takes a Context and allows setting request options on the pages.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CloudFront) ListKeyValueStoresPagesWithContext(ctx aws.Context, input *ListKeyValueStoresInput, fn func(*ListKeyValueStoresOutput, bool) bool, opts ...request.Option) error {
+	p := request.Pagination{
+		NewRequest: func() (*request.Request, error) {
+			var inCpy *ListKeyValueStoresInput
+			if input != nil {
+				tmp := *input
+				inCpy = &tmp
+			}
+			req, _ := c.ListKeyValueStoresRequest(inCpy)
+			req.SetContext(ctx)
+			req.ApplyOptions(opts...)
+			return req, nil
+		},
+	}
+
+	for p.Next() {
+		if !fn(p.Page().(*ListKeyValueStoresOutput), !p.HasNextPage()) {
+			break
+		}
+	}
+
+	return p.Err()
+}
+
 const opListOriginAccessControls = "ListOriginAccessControls2020_05_31"
 
 // ListOriginAccessControlsRequest generates a "aws/request.Request" representing the
@@ -8962,7 +9386,9 @@ func (c *CloudFront) ListTagsForResourceRequest(input *ListTagsForResourceInput)
 
 // ListTagsForResource API operation for Amazon CloudFront.
 //
-// List tags for a CloudFront resource.
+// List tags for a CloudFront resource. For more information, see Tagging a
+// distribution (https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html)
+// in the Amazon CloudFront Developer Guide.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -9151,7 +9577,9 @@ func (c *CloudFront) TagResourceRequest(input *TagResourceInput) (req *request.R
 
 // TagResource API operation for Amazon CloudFront.
 //
-// Add tags to a CloudFront resource.
+// Add tags to a CloudFront resource. For more information, see Tagging a distribution
+// (https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html)
+// in the Amazon CloudFront Developer Guide.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -9343,7 +9771,9 @@ func (c *CloudFront) UntagResourceRequest(input *UntagResourceInput) (req *reque
 
 // UntagResource API operation for Amazon CloudFront.
 //
-// Remove tags from a CloudFront resource.
+// Remove tags from a CloudFront resource. For more information, see Tagging
+// a distribution (https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html)
+// in the Amazon CloudFront Developer Guide.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -10819,6 +11249,100 @@ func (c *CloudFront) UpdateKeyGroupWithContext(ctx aws.Context, input *UpdateKey
 	return out, req.Send()
 }
 
+const opUpdateKeyValueStore = "UpdateKeyValueStore2020_05_31"
+
+// UpdateKeyValueStoreRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateKeyValueStore operation. The "output" return
+// value will be populated with the request's response once the request completes
+// successfully.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateKeyValueStore for more information on using the UpdateKeyValueStore
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//	// Example sending a request using the UpdateKeyValueStoreRequest method.
+//	req, resp := client.UpdateKeyValueStoreRequest(params)
+//
+//	err := req.Send()
+//	if err == nil { // resp is now filled
+//	    fmt.Println(resp)
+//	}
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateKeyValueStore
+func (c *CloudFront) UpdateKeyValueStoreRequest(input *UpdateKeyValueStoreInput) (req *request.Request, output *UpdateKeyValueStoreOutput) {
+	op := &request.Operation{
+		Name:       opUpdateKeyValueStore,
+		HTTPMethod: "PUT",
+		HTTPPath:   "/2020-05-31/key-value-store/{Name}",
+	}
+
+	if input == nil {
+		input = &UpdateKeyValueStoreInput{}
+	}
+
+	output = &UpdateKeyValueStoreOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// UpdateKeyValueStore API operation for Amazon CloudFront.
+//
+// Specifies the key value store to update.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon CloudFront's
+// API operation UpdateKeyValueStore for usage and error information.
+//
+// Returned Error Codes:
+//
+//   - ErrCodeAccessDenied "AccessDenied"
+//     Access denied.
+//
+//   - ErrCodeInvalidArgument "InvalidArgument"
+//     An argument is invalid.
+//
+//   - ErrCodeEntityNotFound "EntityNotFound"
+//     The key value store entity was not found.
+//
+//   - ErrCodeInvalidIfMatchVersion "InvalidIfMatchVersion"
+//     The If-Match version is missing or not valid.
+//
+//   - ErrCodePreconditionFailed "PreconditionFailed"
+//     The precondition in one or more of the request fields evaluated to false.
+//
+//   - ErrCodeUnsupportedOperation "UnsupportedOperation"
+//     This operation is not supported in this region.
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateKeyValueStore
+func (c *CloudFront) UpdateKeyValueStore(input *UpdateKeyValueStoreInput) (*UpdateKeyValueStoreOutput, error) {
+	req, out := c.UpdateKeyValueStoreRequest(input)
+	return out, req.Send()
+}
+
+// UpdateKeyValueStoreWithContext is the same as UpdateKeyValueStore with the addition of
+// the ability to pass a context and additional request options.
+//
+// See UpdateKeyValueStore for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CloudFront) UpdateKeyValueStoreWithContext(ctx aws.Context, input *UpdateKeyValueStoreInput, opts ...request.Option) (*UpdateKeyValueStoreOutput, error) {
+	req, out := c.UpdateKeyValueStoreRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
 const opUpdateOriginAccessControl = "UpdateOriginAccessControl2020_05_31"
 
 // UpdateOriginAccessControlRequest generates a "aws/request.Request" representing the
@@ -11941,7 +12465,8 @@ func (s AssociateAliasOutput) GoString() string {
 // in the Amazon CloudFront Developer Guide.
 //
 // If you don't want to specify any cache behaviors, include only an empty CacheBehaviors
-// element. Don't include an empty CacheBehavior element because this is invalid.
+// element. Don't specify an empty individual CacheBehavior element, because
+// this is invalid. For more information, see CacheBehaviors (https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CacheBehaviors.html).
 //
 // To delete all cache behaviors in an existing distribution, update the distribution
 // configuration and include only an empty CacheBehaviors element.
@@ -13012,7 +13537,9 @@ type CachedMethods struct {
 	_ struct{} `type:"structure"`
 
 	// A complex type that contains the HTTP methods that you want CloudFront to
-	// cache responses to.
+	// cache responses to. Valid values for CachedMethods include GET, HEAD, and
+	// OPTIONS, depending on which caching option you choose. For more information,
+	// see the preceding section.
 	//
 	// Items is a required field
 	Items []*string `locationNameList:"Method" type:"list" required:"true" enum:"Method"`
@@ -13710,7 +14237,8 @@ type ContinuousDeploymentSingleWeightConfig struct {
 	SessionStickinessConfig *SessionStickinessConfig `type:"structure"`
 
 	// The percentage of traffic to send to a staging distribution, expressed as
-	// a decimal number between 0 and .15.
+	// a decimal number between 0 and 0.15. For example, a value of 0.10 means 10%
+	// of traffic is sent to the staging distribution.
 	//
 	// Weight is a required field
 	Weight *float64 `type:"float" required:"true"`
@@ -15153,6 +15681,129 @@ func (s *CreateKeyGroupOutput) SetLocation(v string) *CreateKeyGroupOutput {
 	return s
 }
 
+type CreateKeyValueStoreInput struct {
+	_ struct{} `locationName:"CreateKeyValueStoreRequest" type:"structure" xmlURI:"http://cloudfront.amazonaws.com/doc/2020-05-31/"`
+
+	// The comment of the key value store.
+	Comment *string `type:"string"`
+
+	// The S3 bucket that provides the source for the import. The source must be
+	// in a valid JSON format.
+	ImportSource *ImportSource `type:"structure"`
+
+	// The name of the key value store. The minimum length is 1 character and the
+	// maximum length is 64 characters.
+	//
+	// Name is a required field
+	Name *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s CreateKeyValueStoreInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s CreateKeyValueStoreInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *CreateKeyValueStoreInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "CreateKeyValueStoreInput"}
+	if s.Name == nil {
+		invalidParams.Add(request.NewErrParamRequired("Name"))
+	}
+	if s.Name != nil && len(*s.Name) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Name", 1))
+	}
+	if s.ImportSource != nil {
+		if err := s.ImportSource.Validate(); err != nil {
+			invalidParams.AddNested("ImportSource", err.(request.ErrInvalidParams))
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetComment sets the Comment field's value.
+func (s *CreateKeyValueStoreInput) SetComment(v string) *CreateKeyValueStoreInput {
+	s.Comment = &v
+	return s
+}
+
+// SetImportSource sets the ImportSource field's value.
+func (s *CreateKeyValueStoreInput) SetImportSource(v *ImportSource) *CreateKeyValueStoreInput {
+	s.ImportSource = v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *CreateKeyValueStoreInput) SetName(v string) *CreateKeyValueStoreInput {
+	s.Name = &v
+	return s
+}
+
+type CreateKeyValueStoreOutput struct {
+	_ struct{} `type:"structure" payload:"KeyValueStore"`
+
+	// The ETag in the resulting key value store.
+	ETag *string `location:"header" locationName:"ETag" type:"string"`
+
+	// The resulting key value store.
+	KeyValueStore *KeyValueStore `type:"structure"`
+
+	// The location of the resulting key value store.
+	Location *string `location:"header" locationName:"Location" type:"string"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s CreateKeyValueStoreOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s CreateKeyValueStoreOutput) GoString() string {
+	return s.String()
+}
+
+// SetETag sets the ETag field's value.
+func (s *CreateKeyValueStoreOutput) SetETag(v string) *CreateKeyValueStoreOutput {
+	s.ETag = &v
+	return s
+}
+
+// SetKeyValueStore sets the KeyValueStore field's value.
+func (s *CreateKeyValueStoreOutput) SetKeyValueStore(v *KeyValueStore) *CreateKeyValueStoreOutput {
+	s.KeyValueStore = v
+	return s
+}
+
+// SetLocation sets the Location field's value.
+func (s *CreateKeyValueStoreOutput) SetLocation(v string) *CreateKeyValueStoreOutput {
+	s.Location = &v
+	return s
+}
+
 type CreateMonitoringSubscriptionInput struct {
 	_ struct{} `locationName:"CreateMonitoringSubscriptionRequest" type:"structure" payload:"MonitoringSubscription"`
 
@@ -15577,9 +16228,9 @@ type CreateRealtimeLogConfigInput struct {
 	// Name is a required field
 	Name *string `type:"string" required:"true"`
 
-	// The sampling rate for this real-time log configuration. The sampling rate
-	// determines the percentage of viewer requests that are represented in the
-	// real-time log data. You must provide an integer between 1 and 100, inclusive.
+	// The sampling rate for this real-time log configuration. You can specify a
+	// whole number between 1 and 100 (inclusive) to determine the percentage of
+	// viewer requests that are represented in the real-time log data.
 	//
 	// SamplingRate is a required field
 	SamplingRate *int64 `type:"long" required:"true"`
@@ -16493,8 +17144,8 @@ type DefaultCacheBehavior struct {
 	ForwardedValues *ForwardedValues `deprecated:"true" type:"structure"`
 
 	// A list of CloudFront functions that are associated with this cache behavior.
-	// CloudFront functions must be published to the LIVE stage to associate them
-	// with a cache behavior.
+	// Your functions must be published to the LIVE stage to associate them with
+	// a cache behavior.
 	FunctionAssociations *FunctionAssociations `type:"structure"`
 
 	// A complex type that contains zero or more Lambda@Edge function associations
@@ -17487,6 +18138,91 @@ func (s DeleteKeyGroupOutput) GoString() string {
 	return s.String()
 }
 
+type DeleteKeyValueStoreInput struct {
+	_ struct{} `locationName:"DeleteKeyValueStoreRequest" type:"structure"`
+
+	// The key value store to delete, if a match occurs.
+	//
+	// IfMatch is a required field
+	IfMatch *string `location:"header" locationName:"If-Match" type:"string" required:"true"`
+
+	// The name of the key value store.
+	//
+	// Name is a required field
+	Name *string `location:"uri" locationName:"Name" min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s DeleteKeyValueStoreInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s DeleteKeyValueStoreInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeleteKeyValueStoreInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteKeyValueStoreInput"}
+	if s.IfMatch == nil {
+		invalidParams.Add(request.NewErrParamRequired("IfMatch"))
+	}
+	if s.Name == nil {
+		invalidParams.Add(request.NewErrParamRequired("Name"))
+	}
+	if s.Name != nil && len(*s.Name) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Name", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetIfMatch sets the IfMatch field's value.
+func (s *DeleteKeyValueStoreInput) SetIfMatch(v string) *DeleteKeyValueStoreInput {
+	s.IfMatch = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *DeleteKeyValueStoreInput) SetName(v string) *DeleteKeyValueStoreInput {
+	s.Name = &v
+	return s
+}
+
+type DeleteKeyValueStoreOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s DeleteKeyValueStoreOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s DeleteKeyValueStoreOutput) GoString() string {
+	return s.String()
+}
+
 type DeleteMonitoringSubscriptionInput struct {
 	_ struct{} `locationName:"DeleteMonitoringSubscriptionRequest" type:"structure"`
 
@@ -18130,6 +18866,95 @@ func (s *DescribeFunctionOutput) SetFunctionSummary(v *FunctionSummary) *Describ
 	return s
 }
 
+type DescribeKeyValueStoreInput struct {
+	_ struct{} `locationName:"DescribeKeyValueStoreRequest" type:"structure"`
+
+	// The name of the key value store.
+	//
+	// Name is a required field
+	Name *string `location:"uri" locationName:"Name" min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s DescribeKeyValueStoreInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s DescribeKeyValueStoreInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DescribeKeyValueStoreInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DescribeKeyValueStoreInput"}
+	if s.Name == nil {
+		invalidParams.Add(request.NewErrParamRequired("Name"))
+	}
+	if s.Name != nil && len(*s.Name) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Name", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetName sets the Name field's value.
+func (s *DescribeKeyValueStoreInput) SetName(v string) *DescribeKeyValueStoreInput {
+	s.Name = &v
+	return s
+}
+
+type DescribeKeyValueStoreOutput struct {
+	_ struct{} `type:"structure" payload:"KeyValueStore"`
+
+	// The ETag of the resulting key value store.
+	ETag *string `location:"header" locationName:"ETag" type:"string"`
+
+	// The resulting key value store.
+	KeyValueStore *KeyValueStore `type:"structure"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s DescribeKeyValueStoreOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s DescribeKeyValueStoreOutput) GoString() string {
+	return s.String()
+}
+
+// SetETag sets the ETag field's value.
+func (s *DescribeKeyValueStoreOutput) SetETag(v string) *DescribeKeyValueStoreOutput {
+	s.ETag = &v
+	return s
+}
+
+// SetKeyValueStore sets the KeyValueStore field's value.
+func (s *DescribeKeyValueStoreOutput) SetKeyValueStore(v *KeyValueStore) *DescribeKeyValueStoreOutput {
+	s.KeyValueStore = v
+	return s
+}
+
 // A distribution tells CloudFront where you want content to be delivered from,
 // and the details about how to track and manage content delivery.
 type Distribution struct {
@@ -18358,10 +19183,9 @@ type DistributionConfig struct {
 	// Enabled is a required field
 	Enabled *bool `type:"boolean" required:"true"`
 
-	// (Optional) Specify the maximum HTTP version(s) that you want viewers to use
-	// to communicate with CloudFront. The default value for new web distributions
-	// is http2. Viewers that don't support HTTP/2 automatically use an earlier
-	// HTTP version.
+	// (Optional) Specify the HTTP version(s) that you want viewers to use to communicate
+	// with CloudFront. The default value for new web distributions is http2. Viewers
+	// that don't support HTTP/2 automatically use an earlier HTTP version.
 	//
 	// For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or
 	// later, and must support Server Name Indication (SNI).
@@ -18455,9 +19279,9 @@ type DistributionConfig struct {
 
 	// A unique identifier that specifies the WAF web ACL, if any, to associate
 	// with this distribution. To specify a web ACL created using the latest version
-	// of WAF, use the ACL ARN, for example arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a.
+	// of WAF, use the ACL ARN, for example arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111.
 	// To specify a web ACL created using WAF Classic, use the ACL ID, for example
-	// 473e64fd-f30b-4765-81a0-62ad96dd167a.
+	// a1b2c3d4-5678-90ab-cdef-EXAMPLE11111.
 	//
 	// WAF is a web application firewall that lets you monitor the HTTP and HTTPS
 	// requests that are forwarded to CloudFront, and lets you control access to
@@ -19021,7 +19845,9 @@ type DistributionSummary struct {
 	// Restrictions is a required field
 	Restrictions *Restrictions `type:"structure" required:"true"`
 
-	// Whether the primary distribution has a staging distribution enabled.
+	// A Boolean that indicates whether this is a staging distribution. When this
+	// value is true, this is a staging distribution. When this value is false,
+	// this is not a staging distribution.
 	//
 	// Staging is a required field
 	Staging *bool `type:"boolean" required:"true"`
@@ -19558,7 +20384,7 @@ func (s *FieldLevelEncryptionConfig) SetQueryArgProfileConfig(v *QueryArgProfile
 	return s
 }
 
-// List of field-level encrpytion configurations.
+// List of field-level encryption configurations.
 type FieldLevelEncryptionList struct {
 	_ struct{} `type:"structure"`
 
@@ -19860,7 +20686,7 @@ type FieldLevelEncryptionProfileSummary struct {
 	// Id is a required field
 	Id *string `type:"string" required:"true"`
 
-	// The time when the the field-level encryption profile summary was last updated.
+	// The time when the field-level encryption profile summary was last updated.
 	//
 	// LastModifiedTime is a required field
 	LastModifiedTime *time.Time `type:"timestamp" required:"true"`
@@ -20302,14 +21128,14 @@ func (s *FunctionAssociation) SetFunctionARN(v string) *FunctionAssociation {
 }
 
 // A list of CloudFront functions that are associated with a cache behavior
-// in a CloudFront distribution. CloudFront functions must be published to the
-// LIVE stage to associate them with a cache behavior.
+// in a CloudFront distribution. Your functions must be published to the LIVE
+// stage to associate them with a cache behavior.
 type FunctionAssociations struct {
 	_ struct{} `type:"structure"`
 
 	// The CloudFront functions that are associated with a cache behavior in a CloudFront
-	// distribution. CloudFront functions must be published to the LIVE stage to
-	// associate them with a cache behavior.
+	// distribution. Your functions must be published to the LIVE stage to associate
+	// them with a cache behavior.
 	Items []*FunctionAssociation `locationNameList:"FunctionAssociation" type:"list"`
 
 	// The number of CloudFront functions in the list.
@@ -20380,7 +21206,10 @@ type FunctionConfig struct {
 	// Comment is a required field
 	Comment *string `type:"string" required:"true"`
 
-	// The function's runtime environment verion.
+	// The configuration for the key value store associations.
+	KeyValueStoreAssociations *KeyValueStoreAssociations `type:"structure"`
+
+	// The function's runtime environment version.
 	//
 	// Runtime is a required field
 	Runtime *string `type:"string" required:"true" enum:"FunctionRuntime"`
@@ -20413,6 +21242,11 @@ func (s *FunctionConfig) Validate() error {
 	if s.Runtime == nil {
 		invalidParams.Add(request.NewErrParamRequired("Runtime"))
 	}
+	if s.KeyValueStoreAssociations != nil {
+		if err := s.KeyValueStoreAssociations.Validate(); err != nil {
+			invalidParams.AddNested("KeyValueStoreAssociations", err.(request.ErrInvalidParams))
+		}
+	}
 
 	if invalidParams.Len() > 0 {
 		return invalidParams
@@ -20423,6 +21257,12 @@ func (s *FunctionConfig) Validate() error {
 // SetComment sets the Comment field's value.
 func (s *FunctionConfig) SetComment(v string) *FunctionConfig {
 	s.Comment = &v
+	return s
+}
+
+// SetKeyValueStoreAssociations sets the KeyValueStoreAssociations field's value.
+func (s *FunctionConfig) SetKeyValueStoreAssociations(v *KeyValueStoreAssociations) *FunctionConfig {
+	s.KeyValueStoreAssociations = v
 	return s
 }
 
@@ -23331,6 +24171,67 @@ func (s *Headers) SetQuantity(v int64) *Headers {
 	return s
 }
 
+// The import source for the key value store.
+type ImportSource struct {
+	_ struct{} `type:"structure"`
+
+	// The Amazon Resource Name (ARN) of the import source for the key value store.
+	//
+	// SourceARN is a required field
+	SourceARN *string `type:"string" required:"true"`
+
+	// The source type of the import source for the key value store.
+	//
+	// SourceType is a required field
+	SourceType *string `type:"string" required:"true" enum:"ImportSourceType"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s ImportSource) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s ImportSource) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ImportSource) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ImportSource"}
+	if s.SourceARN == nil {
+		invalidParams.Add(request.NewErrParamRequired("SourceARN"))
+	}
+	if s.SourceType == nil {
+		invalidParams.Add(request.NewErrParamRequired("SourceType"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetSourceARN sets the SourceARN field's value.
+func (s *ImportSource) SetSourceARN(v string) *ImportSource {
+	s.SourceARN = &v
+	return s
+}
+
+// SetSourceType sets the SourceType field's value.
+func (s *ImportSource) SetSourceType(v string) *ImportSource {
+	s.SourceType = &v
+	return s
+}
+
 // An invalidation.
 type Invalidation struct {
 	_ struct{} `type:"structure"`
@@ -23946,6 +24847,271 @@ func (s *KeyPairIds) SetItems(v []*string) *KeyPairIds {
 
 // SetQuantity sets the Quantity field's value.
 func (s *KeyPairIds) SetQuantity(v int64) *KeyPairIds {
+	s.Quantity = &v
+	return s
+}
+
+// The key value store. Use this to separate data from function code, allowing
+// you to update data without having to publish a new version of a function.
+// The key value store holds keys and their corresponding values.
+type KeyValueStore struct {
+	_ struct{} `type:"structure"`
+
+	// The Amazon Resource Name (ARN) of the key value store.
+	//
+	// ARN is a required field
+	ARN *string `type:"string" required:"true"`
+
+	// A comment for the key value store.
+	//
+	// Comment is a required field
+	Comment *string `type:"string" required:"true"`
+
+	// The unique Id for the key value store.
+	//
+	// Id is a required field
+	Id *string `type:"string" required:"true"`
+
+	// The last-modified time of the key value store.
+	//
+	// LastModifiedTime is a required field
+	LastModifiedTime *time.Time `type:"timestamp" required:"true"`
+
+	// The name of the key value store.
+	//
+	// Name is a required field
+	Name *string `type:"string" required:"true"`
+
+	// The status of the key value store.
+	Status *string `type:"string"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s KeyValueStore) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s KeyValueStore) GoString() string {
+	return s.String()
+}
+
+// SetARN sets the ARN field's value.
+func (s *KeyValueStore) SetARN(v string) *KeyValueStore {
+	s.ARN = &v
+	return s
+}
+
+// SetComment sets the Comment field's value.
+func (s *KeyValueStore) SetComment(v string) *KeyValueStore {
+	s.Comment = &v
+	return s
+}
+
+// SetId sets the Id field's value.
+func (s *KeyValueStore) SetId(v string) *KeyValueStore {
+	s.Id = &v
+	return s
+}
+
+// SetLastModifiedTime sets the LastModifiedTime field's value.
+func (s *KeyValueStore) SetLastModifiedTime(v time.Time) *KeyValueStore {
+	s.LastModifiedTime = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *KeyValueStore) SetName(v string) *KeyValueStore {
+	s.Name = &v
+	return s
+}
+
+// SetStatus sets the Status field's value.
+func (s *KeyValueStore) SetStatus(v string) *KeyValueStore {
+	s.Status = &v
+	return s
+}
+
+// The key value store association.
+type KeyValueStoreAssociation struct {
+	_ struct{} `type:"structure"`
+
+	// The Amazon Resource Name (ARN) of the key value store association.
+	//
+	// KeyValueStoreARN is a required field
+	KeyValueStoreARN *string `type:"string" required:"true"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s KeyValueStoreAssociation) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s KeyValueStoreAssociation) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *KeyValueStoreAssociation) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "KeyValueStoreAssociation"}
+	if s.KeyValueStoreARN == nil {
+		invalidParams.Add(request.NewErrParamRequired("KeyValueStoreARN"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetKeyValueStoreARN sets the KeyValueStoreARN field's value.
+func (s *KeyValueStoreAssociation) SetKeyValueStoreARN(v string) *KeyValueStoreAssociation {
+	s.KeyValueStoreARN = &v
+	return s
+}
+
+// The key value store associations.
+type KeyValueStoreAssociations struct {
+	_ struct{} `type:"structure"`
+
+	// The items of the key value store association.
+	Items []*KeyValueStoreAssociation `locationNameList:"KeyValueStoreAssociation" type:"list"`
+
+	// The quantity of key value store associations.
+	//
+	// Quantity is a required field
+	Quantity *int64 `type:"integer" required:"true"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s KeyValueStoreAssociations) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s KeyValueStoreAssociations) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *KeyValueStoreAssociations) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "KeyValueStoreAssociations"}
+	if s.Quantity == nil {
+		invalidParams.Add(request.NewErrParamRequired("Quantity"))
+	}
+	if s.Items != nil {
+		for i, v := range s.Items {
+			if v == nil {
+				continue
+			}
+			if err := v.Validate(); err != nil {
+				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "Items", i), err.(request.ErrInvalidParams))
+			}
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetItems sets the Items field's value.
+func (s *KeyValueStoreAssociations) SetItems(v []*KeyValueStoreAssociation) *KeyValueStoreAssociations {
+	s.Items = v
+	return s
+}
+
+// SetQuantity sets the Quantity field's value.
+func (s *KeyValueStoreAssociations) SetQuantity(v int64) *KeyValueStoreAssociations {
+	s.Quantity = &v
+	return s
+}
+
+// The key value store list.
+type KeyValueStoreList struct {
+	_ struct{} `type:"structure"`
+
+	// The items of the key value store list.
+	Items []*KeyValueStore `locationNameList:"KeyValueStore" type:"list"`
+
+	// The maximum number of items in the key value store list.
+	//
+	// MaxItems is a required field
+	MaxItems *int64 `type:"integer" required:"true"`
+
+	// The next marker associated with the key value store list.
+	NextMarker *string `type:"string"`
+
+	// The quantity of the key value store list.
+	//
+	// Quantity is a required field
+	Quantity *int64 `type:"integer" required:"true"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s KeyValueStoreList) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s KeyValueStoreList) GoString() string {
+	return s.String()
+}
+
+// SetItems sets the Items field's value.
+func (s *KeyValueStoreList) SetItems(v []*KeyValueStore) *KeyValueStoreList {
+	s.Items = v
+	return s
+}
+
+// SetMaxItems sets the MaxItems field's value.
+func (s *KeyValueStoreList) SetMaxItems(v int64) *KeyValueStoreList {
+	s.MaxItems = &v
+	return s
+}
+
+// SetNextMarker sets the NextMarker field's value.
+func (s *KeyValueStoreList) SetNextMarker(v string) *KeyValueStoreList {
+	s.NextMarker = &v
+	return s
+}
+
+// SetQuantity sets the Quantity field's value.
+func (s *KeyValueStoreList) SetQuantity(v int64) *KeyValueStoreList {
 	s.Quantity = &v
 	return s
 }
@@ -25064,6 +26230,10 @@ type ListDistributionsByWebACLIdInput struct {
 	// If you specify "null" for the ID, the request returns a list of the distributions
 	// that aren't associated with a web ACL.
 	//
+	// For WAFV2, this is the ARN of the web ACL, such as arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111.
+	//
+	// For WAF Classic, this is the ID of the web ACL, such as a1b2c3d4-5678-90ab-cdef-EXAMPLE11111.
+	//
 	// WebACLId is a required field
 	WebACLId *string `location:"uri" locationName:"WebACLId" type:"string" required:"true"`
 }
@@ -25646,6 +26816,86 @@ func (s ListKeyGroupsOutput) GoString() string {
 // SetKeyGroupList sets the KeyGroupList field's value.
 func (s *ListKeyGroupsOutput) SetKeyGroupList(v *KeyGroupList) *ListKeyGroupsOutput {
 	s.KeyGroupList = v
+	return s
+}
+
+type ListKeyValueStoresInput struct {
+	_ struct{} `locationName:"ListKeyValueStoresRequest" type:"structure"`
+
+	// The marker associated with the key value stores list.
+	Marker *string `location:"querystring" locationName:"Marker" type:"string"`
+
+	// The maximum number of items in the key value stores list.
+	MaxItems *int64 `location:"querystring" locationName:"MaxItems" type:"integer"`
+
+	// The status of the request for the key value stores list.
+	Status *string `location:"querystring" locationName:"Status" type:"string"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s ListKeyValueStoresInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s ListKeyValueStoresInput) GoString() string {
+	return s.String()
+}
+
+// SetMarker sets the Marker field's value.
+func (s *ListKeyValueStoresInput) SetMarker(v string) *ListKeyValueStoresInput {
+	s.Marker = &v
+	return s
+}
+
+// SetMaxItems sets the MaxItems field's value.
+func (s *ListKeyValueStoresInput) SetMaxItems(v int64) *ListKeyValueStoresInput {
+	s.MaxItems = &v
+	return s
+}
+
+// SetStatus sets the Status field's value.
+func (s *ListKeyValueStoresInput) SetStatus(v string) *ListKeyValueStoresInput {
+	s.Status = &v
+	return s
+}
+
+type ListKeyValueStoresOutput struct {
+	_ struct{} `type:"structure" payload:"KeyValueStoreList"`
+
+	// The resulting key value stores list.
+	KeyValueStoreList *KeyValueStoreList `type:"structure"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s ListKeyValueStoresOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s ListKeyValueStoresOutput) GoString() string {
+	return s.String()
+}
+
+// SetKeyValueStoreList sets the KeyValueStoreList field's value.
+func (s *ListKeyValueStoresOutput) SetKeyValueStoreList(v *KeyValueStoreList) *ListKeyValueStoresOutput {
+	s.KeyValueStoreList = v
 	return s
 }
 
@@ -26370,9 +27620,9 @@ func (s *MonitoringSubscription) SetRealtimeMetricsSubscriptionConfig(v *Realtim
 //
 //   - Use CustomOriginConfig to specify all other kinds of origins, including:
 //     An Amazon S3 bucket that is configured with static website hosting An
-//     Elastic Load Balancing load balancer An AWS Elemental MediaPackage endpoint
-//     An AWS Elemental MediaStore container Any other HTTP server, running on
-//     an Amazon EC2 instance or any other kind of host
+//     Elastic Load Balancing load balancer An Elemental MediaPackage endpoint
+//     An Elemental MediaStore container Any other HTTP server, running on an
+//     Amazon EC2 instance or any other kind of host
 //
 // For the current maximum number of origins that you can specify per distribution,
 // see General Quotas on Web Distributions (https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html#limits-web-distributions)
@@ -26622,7 +27872,7 @@ type OriginAccessControlConfig struct {
 	// A description of the origin access control.
 	Description *string `type:"string"`
 
-	// A name to identify the origin access control.
+	// A name to identify the origin access control. You can specify up to 64 characters.
 	//
 	// Name is a required field
 	Name *string `type:"string" required:"true"`
@@ -27291,7 +28541,7 @@ func (s *OriginCustomHeader) SetHeaderValue(v string) *OriginCustomHeader {
 // An origin group includes two origins (a primary origin and a second origin
 // to failover to) and a failover criteria that you specify. You create an origin
 // group to support origin failover in CloudFront. When you create or update
-// a distribution, you can specifiy the origin group instead of a single origin,
+// a distribution, you can specify the origin group instead of a single origin,
 // and CloudFront will failover from the primary origin to the second origin
 // under the failover conditions that you've chosen.
 type OriginGroup struct {
@@ -30875,7 +32125,8 @@ type ResponseHeadersPolicySecurityHeadersConfig struct {
 	// response header and the header's value.
 	//
 	// For more information about the Strict-Transport-Security HTTP response header,
-	// see Strict-Transport-Security (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)
+	// see Security headers (https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-response-headers-policies.html#understanding-response-headers-policies-security)
+	// in the Amazon CloudFront Developer Guide and Strict-Transport-Security (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)
 	// in the MDN Web Docs.
 	StrictTransportSecurity *ResponseHeadersPolicyStrictTransportSecurity `type:"structure"`
 
@@ -31433,6 +32684,12 @@ func (s *S3Origin) SetOriginAccessIdentity(v string) *S3Origin {
 type S3OriginConfig struct {
 	_ struct{} `type:"structure"`
 
+	//
+	// If you're using origin access control (OAC) instead of origin access identity,
+	// specify an empty OriginAccessIdentity element. For more information, see
+	// Restricting access to an Amazon Web Services (https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html)
+	// in the Amazon CloudFront Developer Guide.
+	//
 	// The CloudFront origin access identity to associate with the origin. Use an
 	// origin access identity to configure the origin so that viewers can only access
 	// objects in an Amazon S3 bucket through CloudFront. The format of the value
@@ -31440,8 +32697,8 @@ type S3OriginConfig struct {
 	//
 	// origin-access-identity/cloudfront/ID-of-origin-access-identity
 	//
-	// where ID-of-origin-access-identity is the value that CloudFront returned
-	// in the ID element when you created the origin access identity.
+	// The ID-of-origin-access-identity is the value that CloudFront returned in
+	// the ID element when you created the origin access identity.
 	//
 	// If you want viewers to be able to access objects using either the CloudFront
 	// URL or the Amazon S3 URL, specify an empty OriginAccessIdentity element.
@@ -31517,7 +32774,7 @@ type SessionStickinessConfig struct {
 	// The maximum amount of time to consider requests from the viewer as being
 	// part of the same session. Allowed values are 300–3600 seconds (5–60 minutes).
 	//
-	// The value must be less than or equal to IdleTTL.
+	// The value must be greater than or equal to IdleTTL.
 	//
 	// MaximumTTL is a required field
 	MaximumTTL *int64 `type:"integer" required:"true"`
@@ -34281,6 +35538,123 @@ func (s *UpdateKeyGroupOutput) SetKeyGroup(v *KeyGroup) *UpdateKeyGroupOutput {
 	return s
 }
 
+type UpdateKeyValueStoreInput struct {
+	_ struct{} `locationName:"UpdateKeyValueStoreRequest" type:"structure" xmlURI:"http://cloudfront.amazonaws.com/doc/2020-05-31/"`
+
+	// The comment of the key value store to update.
+	//
+	// Comment is a required field
+	Comment *string `type:"string" required:"true"`
+
+	// The key value store to update, if a match occurs.
+	//
+	// IfMatch is a required field
+	IfMatch *string `location:"header" locationName:"If-Match" type:"string" required:"true"`
+
+	// The name of the key value store to update.
+	//
+	// Name is a required field
+	Name *string `location:"uri" locationName:"Name" min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s UpdateKeyValueStoreInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s UpdateKeyValueStoreInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *UpdateKeyValueStoreInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "UpdateKeyValueStoreInput"}
+	if s.Comment == nil {
+		invalidParams.Add(request.NewErrParamRequired("Comment"))
+	}
+	if s.IfMatch == nil {
+		invalidParams.Add(request.NewErrParamRequired("IfMatch"))
+	}
+	if s.Name == nil {
+		invalidParams.Add(request.NewErrParamRequired("Name"))
+	}
+	if s.Name != nil && len(*s.Name) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Name", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetComment sets the Comment field's value.
+func (s *UpdateKeyValueStoreInput) SetComment(v string) *UpdateKeyValueStoreInput {
+	s.Comment = &v
+	return s
+}
+
+// SetIfMatch sets the IfMatch field's value.
+func (s *UpdateKeyValueStoreInput) SetIfMatch(v string) *UpdateKeyValueStoreInput {
+	s.IfMatch = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *UpdateKeyValueStoreInput) SetName(v string) *UpdateKeyValueStoreInput {
+	s.Name = &v
+	return s
+}
+
+type UpdateKeyValueStoreOutput struct {
+	_ struct{} `type:"structure" payload:"KeyValueStore"`
+
+	// The ETag of the resulting key value store.
+	ETag *string `location:"header" locationName:"ETag" type:"string"`
+
+	// The resulting key value store to update.
+	KeyValueStore *KeyValueStore `type:"structure"`
+}
+
+// String returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s UpdateKeyValueStoreOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation.
+//
+// API parameter values that are decorated as "sensitive" in the API will not
+// be included in the string output. The member name will be present, but the
+// value will be replaced with "sensitive".
+func (s UpdateKeyValueStoreOutput) GoString() string {
+	return s.String()
+}
+
+// SetETag sets the ETag field's value.
+func (s *UpdateKeyValueStoreOutput) SetETag(v string) *UpdateKeyValueStoreOutput {
+	s.ETag = &v
+	return s
+}
+
+// SetKeyValueStore sets the KeyValueStore field's value.
+func (s *UpdateKeyValueStoreOutput) SetKeyValueStore(v *KeyValueStore) *UpdateKeyValueStoreOutput {
+	s.KeyValueStore = v
+	return s
+}
+
 type UpdateOriginAccessControlInput struct {
 	_ struct{} `locationName:"UpdateOriginAccessControlRequest" type:"structure" payload:"OriginAccessControlConfig"`
 
@@ -35468,6 +36842,18 @@ func ICPRecordalStatus_Values() []string {
 }
 
 const (
+	// ImportSourceTypeS3 is a ImportSourceType enum value
+	ImportSourceTypeS3 = "S3"
+)
+
+// ImportSourceType_Values returns all elements of the ImportSourceType enum
+func ImportSourceType_Values() []string {
+	return []string{
+		ImportSourceTypeS3,
+	}
+}
+
+const (
 	// ItemSelectionNone is a ItemSelection enum value
 	ItemSelectionNone = "none"
 
@@ -35565,6 +36951,12 @@ const (
 
 	// OriginAccessControlOriginTypesMediastore is a OriginAccessControlOriginTypes enum value
 	OriginAccessControlOriginTypesMediastore = "mediastore"
+
+	// OriginAccessControlOriginTypesMediapackagev2 is a OriginAccessControlOriginTypes enum value
+	OriginAccessControlOriginTypesMediapackagev2 = "mediapackagev2"
+
+	// OriginAccessControlOriginTypesLambda is a OriginAccessControlOriginTypes enum value
+	OriginAccessControlOriginTypesLambda = "lambda"
 )
 
 // OriginAccessControlOriginTypes_Values returns all elements of the OriginAccessControlOriginTypes enum
@@ -35572,6 +36964,8 @@ func OriginAccessControlOriginTypes_Values() []string {
 	return []string{
 		OriginAccessControlOriginTypesS3,
 		OriginAccessControlOriginTypesMediastore,
+		OriginAccessControlOriginTypesMediapackagev2,
+		OriginAccessControlOriginTypesLambda,
 	}
 }
 
